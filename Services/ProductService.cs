@@ -23,5 +23,15 @@ namespace Repository2025.Services
         {
             return _repository.Save(product);
         }
+
+        public Product? GetProduct(int id)
+        {
+            return _repository.GetById(id);
+        }
+
+        public bool DeleteProduct(int id)
+        {
+            return _repository.Delete(id);
+        }
      }
 }

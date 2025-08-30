@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Repository2025.Data.Helper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,15 +27,22 @@ namespace Repository2025.Data
             return _instance;
         }
 
-        public DataTable ExecuteSPQuery(string sp)
+        public DataTable ExecuteSPQuery(string sp, List<Parametro>? param = null)
         {
-            DataTable dt = new DataTable();        
+            DataTable dt = new DataTable();
             try
             {
                 _connection.Open();
                 var cmd = new SqlCommand(sp, _connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = sp;
+                if (param != null)
+                {
+                    foreach (Parametro p in param)
+                    {
+                        cmd.Parameters.AddWithValue(p.Name, p.Valor);
+                    }
+                }
                 dt.Load(cmd.ExecuteReader());
             }
             catch (SqlException ex)
