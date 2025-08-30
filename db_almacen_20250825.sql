@@ -1,3 +1,4 @@
+
 USE [master]
 GO
 /****** Object:  Database [db_almacen]    Script Date: 8/25/2025 10:18:53 PM ******/

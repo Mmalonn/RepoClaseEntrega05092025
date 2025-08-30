@@ -1,4 +1,5 @@
-﻿using Repository2025.Domain;
+﻿using Repository2025.Data.Helper;
+using Repository2025.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,13 +13,27 @@ namespace Repository2025.Data
     {
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            List<Parametro> parametros = new List<Parametro>()
+            {
+                new Parametro()
+                {
+                    Name = "@codigo",
+                    Valor = id
+                }
+            };
+            DataHelper.GetInstance().ExecuteSPQuery("SP_REGISTRAR_BAJA_PRODUCTO", parametros);
+            var dt = DataHelper.GetInstance().ExecuteSPQuery("SP_RECUPERAR_PRODUCTO_POR_CODIGO", parametros);
+            if ((bool)dt.Rows[0]["esta_activo"] == false)
+            {
+                return true;
+            }
+            return false;
         }
 
         public List<Product> GetAll()
         {
             List<Product> lst = new List<Product>();
-            
+
             // Traer registros de la BD
             var dt = DataHelper.GetInstance().ExecuteSPQuery("SP_RECUPERAR_PRODUCTOS");
 
@@ -33,13 +48,33 @@ namespace Repository2025.Data
                 p.Activo = (bool)row["esta_activo"];
                 lst.Add(p);
             }
-
             return lst;
         }
 
-        public Product GetById(int id)
+        public Product? GetById(int id)
         {
-            throw new NotImplementedException();
+            List<Parametro> parametros = new List<Parametro>()
+            {
+                new Parametro()
+                {
+                    Name = "@codigo",
+                    Valor = id
+                }
+            };
+            var dt = DataHelper.GetInstance().ExecuteSPQuery("SP_RECUPERAR_PRODUCTO_POR_CODIGO", parametros);
+            if (dt.Rows.Count > 0)
+            {
+                Product p = new Product()
+                {
+                    Codigo = (int)dt.Rows[0]["codigo"],
+                    Nombre = (string)dt.Rows[0]["n_producto"],
+                    Precio = (double)dt.Rows[0]["precio"],
+                    Stock = (int)dt.Rows[0]["stock"],
+                    Activo = (bool)dt.Rows[0]["esta_activo"]
+                };
+                return p;
+            }
+            return null;
         }
 
         public bool Save(Product product)
