@@ -1,6 +1,9 @@
-﻿using Repository2025.Domain;
+﻿using Microsoft.Data.SqlClient;
+using Repository2025.Data.Helper;
+using Repository2025.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +29,31 @@ namespace Repository2025.Data
 
         public bool Save(Budget budget)
         {
-            throw new NotImplementedException();
+            bool result = true;
+            SqlConnection cnn = null;
+            SqlTransaction t = null;
+            try
+            {
+                cnn = DataHelper.GetInstance().GetConnection();
+                cnn.Open();
+
+            }
+            catch (SqlException e)
+            {
+                if (t != null)
+                {
+                    t.Rollback();
+                }
+                result = false;
+            }
+            finally
+            {
+                if (cnn != null && cnn.State == ConnectionState.Open)
+                {
+                    cnn.Close();
+                }
+            }
+            return result;
         }
     }
 }

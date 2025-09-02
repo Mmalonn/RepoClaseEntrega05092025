@@ -55,5 +55,14 @@ namespace Repository2025.Data.Helper
             return dt;
         }
 
+        public int ExecuteSPDMLTransact(string sp, List<Parametro>? parametros, SqlTransaction transaction)
+        {
+            //transaccion
+            return 0;
+        }
+        public SqlConnection GetConnection()
+        {
+            return _connection;
+        }
     }
 }
