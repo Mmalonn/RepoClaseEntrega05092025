@@ -34,5 +34,6 @@ namespace Repository2025.Domain
             }
             return total;
         }
+
     }
 }
