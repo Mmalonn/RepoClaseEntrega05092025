@@ -12,15 +12,15 @@ else
     Console.WriteLine("No hay productos...");
 
 
-Product prod = oService.GetProduct(2);
-if (prod != null)
-{
-    Console.WriteLine(prod);
-}
-else
-{
-    Console.WriteLine("no quiso");
-}
+//Product prod = oService.GetProduct(2);
+//if (prod != null)
+//{
+//    Console.WriteLine(prod);
+//}
+//else
+//{
+//    Console.WriteLine("no quiso");
+//}
 
 
-Console.WriteLine(oService.DeleteProduct(2));
+//Console.WriteLine(oService.DeleteProduct(2));

@@ -61,7 +61,7 @@ namespace Repository2025.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Data Source=DESKTOP-VCSD500\SQLEXPRESS;Initial Catalog=db_almacen2;Integrated Security=True;Trust Server Certificate=True.
+        ///   Busca una cadena traducida similar a Data Source=DESKTOP-VCSD500\SQLEXPRESS;Initial Catalog=db_almacen;Integrated Security=True;Trust Server Certificate=True.
         /// </summary>
         internal static string CadenaConexionLocal {
             get {
